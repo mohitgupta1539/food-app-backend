@@ -256,6 +256,25 @@ export const orderStatusController = async(req, res) => {
   }
 }
 
+//get all User Details
+export const getAllUserDetailsController = async(req, res) => {
+  try {
+    const userDetails = await userModel.find({}).select("-answer").select("-password").select("-updatedAt");
+    res.status(200).send({
+        success: true,
+        message: "All Users List",
+        userDetails,
+      });
+} catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error while getting all User Details",
+      error,
+    });
+  }
+}
+
 // test Controller
 export const testController = (req, res) => {
   console.log("Protected Route");
